@@ -12,6 +12,7 @@ class SearchForm extends React.Component {
     
     render(props) {
         // console.log(this.props)
+        //added so I can push soemthing console.log
         return(
             <Segment style={{marginTop: 20}}raised>
                 <Container textAlign='center'>
