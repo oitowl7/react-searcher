@@ -1,7 +1,7 @@
 import axios from "axios";
 // import keys from "../keys.js"
 
-const authKey =  keys.nyt;
+const authKey =  process.env.keys.nyt;
 const queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
   authKey;
   
