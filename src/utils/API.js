@@ -1,7 +1,8 @@
 import axios from "axios";
-// import keys from "../keys.js"
+//get rid of this on deployment
+import keys from "../keys.js"
 
-const authKey =  process.env.nytKey;
+const authKey =  process.env.nytKey || keys.nyt;
 const queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
   authKey;
   
@@ -28,7 +29,6 @@ const createUrl = (query) => {
 export default {
     search: function(query) {
         const searchURL = createUrl(query)
-        console.log(searchURL);
-    return axios.get(searchURL);
-  }
+        return axios.get(searchURL);
+    }
 };

@@ -1,0 +1,20 @@
+
+
+/* 
+
+768px
+
+
+<Grid.Column width={13} className="textArea">
+<Segment.Group>
+    <Segment>
+        <h3><a href={`${story.web_url}`} target="blank">{`${story.headline.main}`}</a></h3>
+    </Segment>
+    <Segment>
+        <h4>{`${story.snippet}`}</h4>
+    </Segment>
+</Segment.Group>
+</Grid.Column>
+<Grid.Column width={3}> 
+<Button type="submit" className="saveButton" onClick={() => props.handleSave} color='green'><Icon name='save' /> Save Article</Button>
+</Grid.Column> */

@@ -2,7 +2,9 @@ import React from "react";
 import Container from "./components/Container/Container";
 import SearchForm from "./components/SearchForm/SearchForm";
 import Header from "./components/Header/";
+import ResultsSegment from "./components/ResultsSegment/";
 import API from "./utils/API"
+// import db from "./models"
 
 // const App = () => {
 //     return(
@@ -40,7 +42,7 @@ class App extends React.Component {
       };
     handleFormSubmit = event => {
         event.preventDefault();
-        this.setState({dateBackward: '', dateEarly: '', dateLate: '', queryEmpty: '', numResultsEmpty: ''})
+        this.setState({dateBackward: '', dateEarly: '', dateLate: '', queryEmpty: '', numResultsEmpty: '', numResultsTooBig: ''})
         this.checkQuery();
         this.checkDate();
         this.checkNumResults();
@@ -50,11 +52,17 @@ class App extends React.Component {
                 if (res.data.status === "error") {
                   throw new Error(res.data.message);
                 }
-                console.log(res)
-                // this.setState({ results: res.data.message, error: "" });
+                this.handleSearchResults(res);
               })
               .catch(err => this.setState({ error: err.message }));
             };
+        }
+
+        handleSearchResults = res => {
+            let response = res.data.response.docs
+            response.length = this.state.numResults;
+            console.log(response);
+            this.setState({resultData: response});
         }
     
 
@@ -83,6 +91,21 @@ class App extends React.Component {
         if (parseInt(this.state.numResults, 10) > 10) {
             this.setState({numResultsTooBig: "error"})
         }
+    };
+
+    handleSave = story => {
+        console.log(story);
+        const objectToSave = {
+            nyt_id: story._id,
+            headline: story.headline,
+            snippet: story.snippet,
+            link: story.link
+        }
+        // db.SavedArticles.create(objectToSave)
+        //     .catch(err=>{
+        //         console.log(err.errmsg);
+        //     })
+        // console.log(x.dataName);
     }
     
     render() {
@@ -99,6 +122,10 @@ class App extends React.Component {
                     dateEarly = {this.state.dateEarly}
                     dateLate = {this.state.dateLate}
                     numResultsTooBig ={this.state.numResultsTooBig}
+                    />
+                    <ResultsSegment
+                        resultData = {this.state.resultData}
+                        handleSave = {this.handleSave}
                     />
                 </Container>
             </div>
